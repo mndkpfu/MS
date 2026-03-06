@@ -1,6 +1,15 @@
 import pytest
+from random import randint, uniform
+
+import pandas as pd
 
 from statools import *
+
+
+
+
+def randata(a: float = 50, b: float = 100, ndigits: int = 1, minsize: int = 50, maxsize: int = 150) -> list[float]:
+    return [round(uniform(a, b), ndigits) for _ in range(randint(minsize, maxsize))]
 
 
 def test_quartile_length():
@@ -69,3 +78,16 @@ def test_quartile_length():
     assert quartile(data89, 2) == 44
     assert quartile(data89, 3) == 66
     assert quartile(data89, 4) == 88
+
+
+def test_median():
+    for _ in range(50):
+        data = randata()
+        assert median(sorted(data)) == pd.Series(data).median()
+
+
+def test_iqr():
+    pandas_iqr = lambda s: s.quantile(0.75, interpolation='midpoint') - s.quantile(0.25, interpolation='midpoint')
+    for _  in range(50):
+        data = randata()
+        assert iqr(sorted(data)) == pandas_iqr(pd.Series(data))
