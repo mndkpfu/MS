@@ -1,3 +1,11 @@
+def mean(data: list[float]) -> float:
+    return sum(data) / len(data)
+
+
+def variance(data: list[float]) -> float:
+    return sum(x**2 for x in data) / len(data) - mean(data)**2
+
+
 def quartile(data: list[float], q: int) -> float:
     n = len(data)
     index = (n - 1) * q / 4
