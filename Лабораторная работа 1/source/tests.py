@@ -12,6 +12,18 @@ def randata(a: float = 50, b: float = 100, ndigits: int = 1, minsize: int = 50, 
     return [round(uniform(a, b), ndigits) for _ in range(randint(minsize, maxsize))]
 
 
+def test_mean():
+    for _ in range(50):
+        data = randata()
+        assert mean(data) == pytest.approx(pd.Series(data).mean())
+
+
+def test_variance():
+    for _ in range(50):
+        data = randata()
+        assert variance(data) == pytest.approx(pd.Series(data).var(ddof=0))
+
+
 def test_quartile_length():
     # n=5 (n-1)=4
     # q=1 (1/4):  (n-1)q=1  [(n-1)q]=1  data[1]
