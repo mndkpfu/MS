@@ -21,7 +21,11 @@ def test_mean():
 def test_variance():
     for _ in range(50):
         data = randata()
-        assert variance(data) == pytest.approx(pd.Series(data).var(ddof=0))
+        assert variance(data, unbiased=False) == pytest.approx(pd.Series(data).var(ddof=0))
+
+    for _ in range(50):
+        data = randata()
+        assert variance(data, unbiased=True) == pytest.approx(pd.Series(data).var())
 
 
 def test_quartile_length():
