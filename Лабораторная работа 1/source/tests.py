@@ -2,6 +2,7 @@ import pytest
 from random import randint, uniform
 
 import pandas as pd
+import scipy
 
 from statools import *
 
@@ -32,6 +33,12 @@ def test_std():
     for _ in range(50):
         data = randata()
         assert std(data) == pytest.approx(pd.Series(data).std(ddof=0))
+
+
+def test_skewness():
+    for _ in range(50):
+        data = randata()
+        assert skewness(data) == pytest.approx(scipy.stats.skew(pd.Series(data), bias=True))
 
 
 def test_quartile_length():

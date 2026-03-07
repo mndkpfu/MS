@@ -15,6 +15,11 @@ def std(data: list[float]) -> float:
     return sqrt(variance(data))
 
 
+def skewness(data: list[float]) -> float:
+    X, s = mean(data), std(data)
+    return sum(pow(x - X, 3) for x in data) / (len(data) * pow(s, 3))
+
+
 def quartile(data: list[float], q: int) -> float:
     n = len(data)
     index = (n - 1) * q / 4
