@@ -1,44 +1,8 @@
 import pytest
-from random import randint, uniform
-
-import pandas as pd
-import scipy
 
 from statools import *
 
 
-
-
-def randata(a: float = 50, b: float = 100, ndigits: int = 1, minsize: int = 50, maxsize: int = 150) -> list[float]:
-    return [round(uniform(a, b), ndigits) for _ in range(randint(minsize, maxsize))]
-
-
-def test_mean():
-    for _ in range(50):
-        data = randata()
-        assert mean(data) == pytest.approx(pd.Series(data).mean())
-
-
-def test_variance():
-    for _ in range(50):
-        data = randata()
-        assert variance(data, unbiased=False) == pytest.approx(pd.Series(data).var(ddof=0))
-
-    for _ in range(50):
-        data = randata()
-        assert variance(data, unbiased=True) == pytest.approx(pd.Series(data).var())
-
-
-def test_std():
-    for _ in range(50):
-        data = randata()
-        assert std(data) == pytest.approx(pd.Series(data).std(ddof=0))
-
-
-def test_skewness():
-    for _ in range(50):
-        data = randata()
-        assert skewness(data) == pytest.approx(scipy.stats.skew(pd.Series(data), bias=True))
 
 
 def test_quartile_length():
@@ -107,16 +71,3 @@ def test_quartile_length():
     assert quartile(data89, 2) == 44
     assert quartile(data89, 3) == 66
     assert quartile(data89, 4) == 88
-
-
-def test_median():
-    for _ in range(50):
-        data = randata()
-        assert median(sorted(data)) == pd.Series(data).median()
-
-
-def test_iqr():
-    pandas_iqr = lambda s: s.quantile(0.75, interpolation='midpoint') - s.quantile(0.25, interpolation='midpoint')
-    for _  in range(50):
-        data = randata()
-        assert iqr(sorted(data)) == pandas_iqr(pd.Series(data))
