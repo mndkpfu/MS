@@ -13,7 +13,8 @@ def randata(a: float = 50, b: float = 100, ndigits: int = 1, minsize: int = 50, 
     return [round(uniform(a, b), ndigits) for _ in range(randint(minsize, maxsize))]
 
 
-def test_statistics():
+@pytest.mark.parametrize("run", range(100))
+def test_statistics(run):
     data = randata()
     sdata = sorted(data)
     pdata = pd.Series(data)
