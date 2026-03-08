@@ -3,8 +3,6 @@ import pytest
 from statools import *
 
 
-
-
 def test_quartile_length():
     # n=5 (n-1)=4
     # q=1 (1/4):  (n-1)q=1  [(n-1)q]=1  data[1]
@@ -71,3 +69,16 @@ def test_quartile_length():
     assert quartile(data89, 2) == 44
     assert quartile(data89, 3) == 66
     assert quartile(data89, 4) == 88
+
+
+def test_statistics():
+    data = [15.0, 50.8, 12.2, 18.4, 25.3, 10.5, 30.7, 15.0, 22.1]
+    sdata = [10.5, 12.2, 15.0, 15.0, 18.4, 22.1, 25.3, 30.7, 50.8]
+
+    assert mean(data) == pytest.approx(22.22, abs=0.01)
+    assert variance(data) == pytest.approx(139.43, abs=0.01)
+    assert variance(data, unbiased=True) == pytest.approx(156.85, abs=0.01)
+    assert std(data) == pytest.approx(11.81, abs=0.01)
+    assert skewness(data) == pytest.approx(1.39, abs=0.01)
+    assert median(sdata) == 18.4
+    assert iqr(sdata) == 25.3 - 15.0
