@@ -1,6 +1,11 @@
 from pathlib import Path
 
+import matplotlib.pyplot
+
 from statools import *
+from plotools import *
+
+
 
 
 def read(path: str | Path) -> list[float]:
@@ -47,6 +52,13 @@ def main(path: str | Path):
 
     # Пункт 1. Характеристики выборки
     descriptive_statistics(sample)
+
+    # Пункт 2. Гистограмма
+    his_figure, his_axes = matplotlib.pyplot.subplots()
+    histogram(sample, his_axes)
+    his_axes.set_title("Гистограмма")
+
+    matplotlib.pyplot.show()
 
 
 
