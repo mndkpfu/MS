@@ -58,6 +58,12 @@ def main(path: str | Path):
     histogram(sample, his_axes)
     his_axes.set_title("Гистограмма")
 
+    # Пункт 3. ЭФР
+    edf_figure, edf_axes = matplotlib.pyplot.subplots()
+    edf_axes.tick_params(axis='x', labelrotation=90)
+    edf(sample, edf_axes)
+    edf_axes.set_title("ЭФР")
+
     matplotlib.pyplot.show()
 
 
