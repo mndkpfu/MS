@@ -8,6 +8,7 @@ from matplotlib import colormaps
 
 
 def histogram(data: list[float], axes: Axes, pallete: str = "viridis"):
+    assert all(a <= b for a, b in pairwise(data))
     number = len(data) // 10
     width = (max(data) - min(data)) / (number - 1)
     edges = list((min(data) - width/2 + width*i) for i in range(number + 1))
@@ -26,6 +27,7 @@ def histogram(data: list[float], axes: Axes, pallete: str = "viridis"):
 
 
 def edf(data: list[float], axes: Axes, delta: float = 5):
+    assert all(a <= b for a, b in pairwise(data))
     steps, heights = [data[0] - delta], [0]
     for x in data:
         if x == steps[-1]:
@@ -46,7 +48,5 @@ def edf(data: list[float], axes: Axes, delta: float = 5):
     axes.hlines([.0, .25, .5, .75, 1.], xmin=steps[0], xmax=steps[-1], color="gray", linestyles="dashed", linewidth=0.8)
 
 
-
 def max_diffs(data: list[float], n: int = 3) -> list[float]:
-    diffs = sorted(pairwise(data), key=lambda x: abs(x[0] - x[1]), reverse=True)
-    return diffs[:n]
+    return sorted(pairwise(data), key=lambda x: abs(x[0] - x[1]), reverse=True)[:n]

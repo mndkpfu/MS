@@ -41,6 +41,24 @@ def descriptive_statistics(sample: list[float], ndigits: int = 2):
         print(f"{title}: {round(function(sample), ndigits)}")
 
 
+def show_plots(sample: list[float]):
+    his_figure, his_axes = matplotlib.pyplot.subplots()
+    histogram(sample, his_axes)
+    his_axes.set_title("Гистограмма")
+
+    edf_figure, edf_axes = matplotlib.pyplot.subplots()
+    edf_axes.tick_params(axis="x", labelsize=8)
+    edf(sample, edf_axes)
+    edf_axes.set_title("ЭФР")
+
+    # Стилизация ЭФР
+    xticks = [quartile(sample, q) for q in range(5)]
+    edf_axes.set_xticks(xticks)
+    edf_axes.vlines(xticks, ymin=0, ymax=1, color="gray", linestyles="dashed", linewidth=0.8)
+
+    matplotlib.pyplot.show()
+
+
 def main(path: str | Path):
     sample = read(path)
     sample.sort()
@@ -53,23 +71,8 @@ def main(path: str | Path):
     # Пункт 1. Характеристики выборки
     descriptive_statistics(sample)
 
-    # Пункт 2. Гистограмма
-    his_figure, his_axes = matplotlib.pyplot.subplots()
-    histogram(sample, his_axes)
-    his_axes.set_title("Гистограмма")
-
-    # Пункт 3. ЭФР
-    edf_figure, edf_axes = matplotlib.pyplot.subplots()
-    edf_axes.tick_params(axis='x', labelrotation=90)
-    edf(sample, edf_axes)
-    edf_axes.set_title("ЭФР")
-
-    xticks = [quartile(sample, q) for q in range(5)]
-    edf_axes.set_xticks(xticks)
-    edf_axes.vlines(xticks, ymin=0, ymax=1, color="gray", linestyles="dashed", linewidth=0.8)
-
-    matplotlib.pyplot.show()
-
+    # Пункты 2 и 3. Гистограмма и ЭФР
+    show_plots(sample)
 
 
 

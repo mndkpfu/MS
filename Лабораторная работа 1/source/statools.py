@@ -1,3 +1,4 @@
+from itertools import pairwise
 from math import sqrt
 
 
@@ -21,6 +22,7 @@ def skewness(data: list[float]) -> float:
 
 
 def quartile(data: list[float], q: int) -> float:
+    assert all(a <= b for a, b in pairwise(data)) and 0 <= q <= 4
     n = len(data)
     index = (n - 1) * q / 4
     if index.is_integer():
