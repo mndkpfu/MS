@@ -44,10 +44,11 @@ def descriptive_statistics(sample: list[float], ndigits: int = 2):
 def show_plots(sample: list[float]):
     his_figure, his_axes = matplotlib.pyplot.subplots()
     histogram(sample, his_axes)
+    his_axes.tick_params(axis="x", rotation=45)
     his_axes.set_title("Гистограмма")
 
     edf_figure, edf_axes = matplotlib.pyplot.subplots()
-    edf_axes.tick_params(axis="x", labelsize=8)
+    edf_axes.tick_params(axis="x", rotation=45)
     edf(sample, edf_axes)
     edf_axes.set_title("ЭФР")
 

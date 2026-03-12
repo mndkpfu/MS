@@ -44,8 +44,9 @@ def edf(data: list[float], axes: Axes, delta: float = 5):
 
     #axes.set_yticks(list(chain([0, 1], *max_diffs(heights))))
     #axes.set_xticks(list(chain([data[0], data[-1]], *max_diffs(steps[1:-1]))))
-    axes.set_yticks([0, .25, .5, .75, 1])
-    axes.hlines([.0, .25, .5, .75, 1.], xmin=steps[0], xmax=steps[-1], color="gray", linestyles="dashed", linewidth=0.8)
+    ytiks = [0, .25, .5, .75, 1]
+    axes.set_yticks(ytiks)
+    axes.hlines(ytiks, xmin=steps[0], xmax=steps[-1], color="gray", linestyles="dashed", linewidth=0.8)
 
 
 def max_diffs(data: list[float], n: int = 3) -> list[float]:
