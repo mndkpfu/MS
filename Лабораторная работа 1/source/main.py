@@ -64,6 +64,10 @@ def main(path: str | Path):
     edf(sample, edf_axes)
     edf_axes.set_title("ЭФР")
 
+    xticks = [quartile(sample, q) for q in range(5)]
+    edf_axes.set_xticks(xticks)
+    edf_axes.vlines(xticks, ymin=0, ymax=1, color="gray", linestyles="dashed", linewidth=0.8)
+
     matplotlib.pyplot.show()
 
 

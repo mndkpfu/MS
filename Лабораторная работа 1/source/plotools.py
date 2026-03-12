@@ -17,8 +17,11 @@ def histogram(data: list[float], axes: Axes, pallete: str = "viridis"):
     for i, ((left, right), height) in enumerate(zip(pairwise(edges), heights)):
         rect = patches.Rectangle((left, 0), width, height, facecolor=cmap(i / number))
         axes.add_patch(rect)
+
     axes.set_xticks(edges)
     axes.set_yticks(heights)
+    axes.hlines(y=heights, xmin=edges[0], xmax=edges[-1], colors="gray", linestyles="dashed", linewidth=0.8)
+
     axes.autoscale_view()
 
 
@@ -35,10 +38,12 @@ def edf(data: list[float], axes: Axes, delta: float = 5):
     heights = [x / len(data) for x in heights]
 
     for (left, right), height in zip(pairwise(steps), heights):
-        axes.plot([left, right], [height, height])
+        axes.plot([left, right], [height, height], color="blue")
 
-    axes.set_yticks(list(chain([0, 1], *max_diffs(heights))))
-    axes.set_xticks(list(chain([data[0], data[-1]], *max_diffs(steps[1:-1]))))
+    #axes.set_yticks(list(chain([0, 1], *max_diffs(heights))))
+    #axes.set_xticks(list(chain([data[0], data[-1]], *max_diffs(steps[1:-1]))))
+    axes.set_yticks([0, .25, .5, .75, 1])
+    axes.hlines([.0, .25, .5, .75, 1.], xmin=steps[0], xmax=steps[-1], color="gray", linestyles="dashed", linewidth=0.8)
 
 
 
