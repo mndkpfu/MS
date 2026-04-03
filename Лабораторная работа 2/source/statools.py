@@ -1,3 +1,8 @@
-def edf(data: list[float]) -> dict[float, float]:
-    heights = {x: sum(y < x for y in data) for x in sorted(data)}
-    return heights
+def mean(data: list[float]) -> float:
+    return sum(data) / len(data)
+
+
+def variance(data: list[float], unbiased: bool = False) -> float:
+    if unbiased:
+        return len(data) / (len(data) - 1) * variance(data, unbiased=False)
+    return sum(x**2 for x in data) / len(data) - mean(data)**2
