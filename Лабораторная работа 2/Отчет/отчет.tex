@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{icomma}
+\usepackage{amsmath}
+\usepackage{enumitem}
+
+
+
+\begin{document}
+
+\begin{flushright}
+    \textit{Выполнил: Максимов Н. Д.} \\
+    \textit{Группа: 09-414} \\
+    \textit{Вариант: 8}
+\end{flushright}
+
+\begin{center}
+    \bfseries\LARGE Отчет по лабораторной работе №2
+\end{center}
+\bigskip
+
+% ==============================================================================
+
+\section*{Задание 1}
+По заданию необходимо сравнить дисперсии двух независимых выборок из нормального распределения по критерию Фишера при уровне значимости $\alpha = 0,025$.
+
+\paragraph{Гипотезы}
+\begin{itemize}[nosep]
+    \item $H_0$: Дисперсии двух групп равны ($\sigma_1^2 = \sigma_2^2$);
+    \item $H_1$: Дисперсия первой группы меньше ($\sigma_1^2 < \sigma_2^2$).
+\end{itemize}
+
+\paragraph{Расчетные формулы} Для левосторонней критической области, соответствующей $H_1$, критическая константа и $p$-значение вычисляются как
+\[ C_{\text{крит}} = F^{-1}(\alpha ~|~ k_1, k_2) \qquad\qquad p\text{-value} = F(f ~|~ k_1, k_2), \]
+где $F$ --- распределению Фишера, $f$ --- статистика критерия, а $k_1$ и $k_2$ --- числа степеней свободы двух выборок.
+
+\paragraph{Результаты вычислений} ~\vspace{-0.5\baselineskip}
+\[ f = 0,903 \qquad\qquad C_{\text{крит}} = 0,612 \qquad\qquad p\text{-value} = 0,342 \]
+
+\paragraph{Вывод} Так как $p\text{-value} = 0,342 > \alpha = 0,025$ (или $f > C_{\text{крит}}$), статистических оснований для отклонения нулевой гипотезы нет. Дисперсии двух выборок можно считать равными.
+
+% ==============================================================================
+
+\end{document}
