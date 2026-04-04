@@ -22,6 +22,10 @@ from statools import *
 def d_stat(data: list[float], F: Callable) -> float:
     # Для ЭФР непрерывной слева
     return max(abs(sum(y <= x for y in data) / len(data) - F(x)) for x in data)
+    # Для 2х точек
+    sorted_data = sorted(data)
+    return max(max(abs((i + 1) / len(data) - F(x)), abs(i / len(data) - F(x))) for i, x in enumerate(sorted_data))
+
 
 
 def main(path: str | Path):
