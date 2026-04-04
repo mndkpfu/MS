@@ -61,10 +61,10 @@ def main(path: str | Path):
         logging.info("    P-значение не меньше уровня значимости. Не достаточно обоснований отвергать H0.")
 
     # Визуализация
-    plot_distributions(X)
+    graph(X)
 
 
-def plot_distributions(data: list[float], l: float = 2):
+def graph(data: list[float], l: float = 2):
     x_sorted = sorted(data)
     n = len(x_sorted)
 
