@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{icomma}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{xfrac}
+\usepackage{fancyvrb}
+
+\pagestyle{empty}
+
+\begin{document}
+
+% ==============================================================================
+
+\begin{flushright}
+    \textit{Выполнил: Максимов Н. Д.} \\
+    \textit{Группа: 09-414} \\
+    \textit{Вариант: 8}
+\end{flushright}
+
+\begin{center}
+    \bfseries\LARGE Отчет по лабораторной работе №3
+\end{center}
+\bigskip
+
+% ==============================================================================
+
+\paragraph{Постановка задачи} По заданию необходимо построить двусторонний доверительный интервал для дисперсии нормального распределения  при заданной надежности $Q=0.95$. Для построения двустороннего доверительного интервала сначала определяется уровень значимости $\alpha = 1 - Q$. Так как интервал симметричен относительно вероятности попадания в «хвосты» распределения, значение $\alpha$ делится пополам. Таким образом, для расчетов используется величина $\alpha/2$, отсекающая соответствующую область значений критических точек. Верхняя и нижная доверительные границы вычисляеются по формулам:
+\[ \overline{\sigma^2} = \frac{n}{\chi_{(\sfrac\alpha2)}}S^2 \qquad\qquad\qquad \underline{\sigma^2} = \frac{n}{\chi_{(1 - \sfrac\alpha2)}} S^2, \]
+где $n$ --- число элементов в выборке, $S^2$ ---  ее выборочная дисперсия (смещенная), $\chi$ --- хи-квадрат распределение с $n-1$ степенями свободы.
+
+% ==============================================================================
+
+\paragraph{Полученные значения} В результате проведенных вычислений для заданного уровня значимости $\alpha = 0.05$ и смещенной выборочной дисперсии $S^2 = 17.515$ был получен следующий доверительный интервал:
+\[ \sigma^2 \in [12.936; \, 26.007] \]
+
+% ==============================================================================
+
+\paragraph{Листинг}
+
+\noindent \texttt{main.py}
+\begin{Verbatim}[tabsize=4, fontsize=\small]
+def mean(data: list[float]) -> float:
+    return sum(data) / len(data)
+
+def variance(data: list[float], unbiased: bool = False) -> float:
+    if unbiased:
+        return len(data) / (len(data) - 1) * variance(data, unbiased=False)
+    return sum(x**2 for x in data) / len(data) - mean(data)**2
+
+def variance_interval(data: list[float], alpha: float) -> tuple[float, float]:
+    n = len(data)
+    df = n - 1
+    s2 = variance(data, unbiased=False)
+
+    lower = n * s2 / stats.chi2.ppf(1 - alpha / 2, df)
+    upper = n * s2 / stats.chi2.ppf(alpha / 2, df)
+    return lower, upper
+\end{Verbatim}
+
+% ==============================================================================
+
+\vfill
+\noindent\rule{\textwidth}{0.4pt}
+\small Полный исходный код лабораторной работы доступен в репозитории на GitHub: \url{https://github.com/mndkpfu/MS}
+
+% ==============================================================================
+
+\end{document}
